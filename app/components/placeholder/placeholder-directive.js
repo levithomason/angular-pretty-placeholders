@@ -66,6 +66,7 @@ angular.module('pretty-placeholders', []).directive('placeholder',
                             return;
                         }
                         scope.placeholder = newVal;
+                        scope.placeholder += attrs.required ? '*' : '';
                     });
 
                     elm
