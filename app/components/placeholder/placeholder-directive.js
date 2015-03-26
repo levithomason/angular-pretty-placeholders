@@ -21,14 +21,23 @@ angular.module('pretty-placeholders', []).directive('placeholder',
                         }
                     }
 
+                    function setStyle() {
+                        if (!elm.val()) {
+                            setBaseStyle();
+                        } else {
+                            setLabelStyle();
+                        }
+                    }
+
                     function setBaseStyle() {
                         var elmPosition = elm[0].getBoundingClientRect();
                         var elmStyle = $window.getComputedStyle(elm[0]);
 
-                        placeholderElm[0].style.top = elmPosition.top;
-                        placeholderElm[0].style.left = elmPosition.left;
+                        placeholderElm.removeClass('as-label');
+
+                        placeholderElm[0].style.top = elm[0].offsetTop;
+                        placeholderElm[0].style.left = elm[0].offsetLeft;
                         placeholderElm[0].style.width = elmPosition.width;
-                        placeholderElm[0].style.height = elmPosition.height;
 
                         placeholderElm[0].style.padding = elmStyle.padding;
                         placeholderElm[0].style.lineHeight = elmStyle.lineHeight;
@@ -38,14 +47,14 @@ angular.module('pretty-placeholders', []).directive('placeholder',
                         placeholderElm[0].style.boxSizing = 'border-box';
                     }
 
-                    function setFocusStyle() {
+                    function setLabelStyle() {
                         var elmPosition = elm[0].getBoundingClientRect();
 
-                        placeholderElm[0].style.top = Math.ceil(elmPosition.top - placeholderElm[0].clientHeight / 2);
-                        placeholderElm[0].style.left = elmPosition.left;
+                        placeholderElm.addClass('as-label');
+
+                        placeholderElm[0].style.top = Math.ceil(elm[0].offsetTop - placeholderElm[0].clientHeight / 2);
+                        placeholderElm[0].style.left = elm[0].offsetLeft;
                         placeholderElm[0].style.width = elmPosition.width;
-                        placeholderElm[0].style.height = elmPosition.height;
-                        //placeholderElm[0].style.border = 'none';
                     }
 
                     attrs.$observe('placeholder', function(newVal, oldVal) {
@@ -58,26 +67,25 @@ angular.module('pretty-placeholders', []).directive('placeholder',
                     elm
                         .removeAttr('placeholder')
                         .on('focus', function() {
-                            placeholderElm.addClass('focus');
-                            setFocusStyle();
+                            setStyle();
                         })
                         .on('blur', function() {
-                            placeholderElm.removeClass('focus');
-                            setBaseStyle();
+                            setStyle();
                         })
                         .on('input', function() {
                             setHasContentClass();
+                            setStyle();
                         })
                         .after(placeholderElm);
 
                     w
                         .on('resize', function() {
-                            setBaseStyle();
+                            setStyle();
                             scope.$apply();
                         });
 
                     setHasContentClass();
-                    setBaseStyle();
+                    setStyle();
                 }
             };
         }]);

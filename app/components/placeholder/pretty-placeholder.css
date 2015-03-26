@@ -4,12 +4,13 @@
   pointer-events: none;
   white-space: nowrap;
   overflow: hidden;
-  transition: color 0.1s ease-out, top 0.1s ease-out;
+  transition-property: color, top, font-size;
+  transition-duration: 0.1s;
+  transition-timing-function: cubic-bezier(0.6, 0.9, 0.4, 1);
 }
-.pretty-placeholder.focus {
+.pretty-placeholder.as-label {
+  font-size: 0.75em;
+  font-weight: bold;
   color: inherit;
   text-shadow: 0 -1px 0 #ffffff, 0 1px 0 #ffffff, -1px 0 0 #ffffff, 1px 0 0 #ffffff, 1px -1px 0 #ffffff, 1px 1px 0 #ffffff, -1px -1px 0 #ffffff, -1px 1px 0 #ffffff;
-}
-.pretty-placeholder.has-content {
-  color: #dddddd;
 }
