@@ -1,0 +1,23 @@
+.pretty-placeholder {
+  position: absolute;
+  color: fade(#000, 40);
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: color 0.1s ease-out, top 0.1s ease-out;
+  &.focus {
+    color: inherit;
+    text-shadow: 
+    0     -1px 0 #fff, // up
+    0     1px  0 #fff, // down
+    -1px  0    0 #fff, // left
+    1px   0    0 #fff, // right
+    1px   -1px 0 #fff, // right up
+    1px   1px  0 #fff, // right down
+    -1px  -1px 0 #fff, // left up
+    -1px  1px  0 #fff; // left down
+  }
+  &.has-content {
+    color: #dddddd;
+  }
+}
