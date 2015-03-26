@@ -45,16 +45,20 @@ angular.module('pretty-placeholders', []).directive('placeholder',
                         placeholderElm[0].style.border = elmStyle.border;
                         placeholderElm[0].style.borderColor = 'transparent';
                         placeholderElm[0].style.boxSizing = 'border-box';
+                        placeholderElm[0].style.fontSize = elmStyle.fontSize;
                     }
 
                     function setLabelStyle() {
                         var elmPosition = elm[0].getBoundingClientRect();
+                        var elmStyle = $window.getComputedStyle(elm[0]);
 
                         placeholderElm.addClass('as-label');
 
                         placeholderElm[0].style.top = Math.ceil(elm[0].offsetTop - placeholderElm[0].clientHeight / 2);
                         placeholderElm[0].style.left = elm[0].offsetLeft;
                         placeholderElm[0].style.width = elmPosition.width;
+                        placeholderElm[0].style.fontSize = elmStyle.fontSize * 0.75;
+                        placeholderElm[0].style.border = 'none';
                     }
 
                     attrs.$observe('placeholder', function(newVal, oldVal) {
